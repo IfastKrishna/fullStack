@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "mega Project learn",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon start"
+  },
+  "keywords": [
+    "node",
+    "mongoose",
+    "mongo"
+  ],
+  "author": "krishna",
+  "license": "ISC"
+}
