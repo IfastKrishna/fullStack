@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      required: true, // cloundinary url
+      required: true, // cloudinary url
     },
-    converImage: {
+    coverImage: {
       type: String,
     },
     watchHistory: [
@@ -38,14 +38,13 @@ const userSchema = new mongoose.Schema(
         ref: "Video",
       },
     ],
-    passwrod: {
-      trype: String,
-      required: [true, "Passwrod is required"],
+    password: {
+      type: String,
+      required: [true, "Password is required"],
     },
 
     refreshToken: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
@@ -54,14 +53,14 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
-  this.passwrod = bcrypt.hash(this.passwrod, 10);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
-userSchema.method.isPasswrodCurrect = async function (password) {
+userSchema.methods.isPasswordCorrect = async function (password) {
   if (!password) return false;
 
-  return await bcrypt.compare(password, this.passwrod);
+  return await bcrypt.compare(password, this.password);
 };
 
 userSchema.methods.generateAccessToken = async function () {
